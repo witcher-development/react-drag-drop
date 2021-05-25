@@ -1,0 +1,9 @@
+@import "../../assets";
+
+.section {
+	height: 100%;
+
+	background-color: $lighter;
+	border: 2px solid $secondary;
+	border-radius: 6px;
+}

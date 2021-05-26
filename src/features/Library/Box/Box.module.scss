@@ -1,0 +1,42 @@
+@import '../../../assets';
+
+.box {
+	width: 130px;
+	height: 100%;
+
+	margin-right: 20px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	background-color: rgba($primary, 0.5);
+	border: 1px solid transparent;
+	border-radius: 4px;
+
+	position: relative;
+
+	cursor: pointer;
+	transition: border .2s;
+
+	&__tip {
+		display: none;
+
+		position: absolute;
+		top: calc(100% + 10px);
+		left: 0;
+
+		width: 200%;
+		padding: 10px;
+
+		background-color: rgba($lighter, 0.5);
+		border-radius: 4px;
+	}
+	&:hover &__tip {
+		display: block;
+	}
+
+	&:hover {
+		border-color: rgba($accent, .4);
+	}
+}

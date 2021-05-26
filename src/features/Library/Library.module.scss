@@ -1,8 +1,12 @@
 @import "../../assets";
 
 .library {
+	height: 100%;
 	&_wrap {
 		height: 150px;
 		margin: 30px;
 	}
+
+	display: flex;
+	padding: 10px;
 }

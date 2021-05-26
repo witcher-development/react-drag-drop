@@ -1,10 +1,12 @@
-import React from 'react';
-import { useDrag } from 'react-dnd'
+import React, { useState } from 'react';
+import { useDrop } from 'react-dnd'
 
 import styles from './Pipe.module.scss'
 
+import { ItemTypes } from '../../constants';
+
 import { SectionComponent } from '../../components/Section';
-import { BoxComponent } from './Box';
+import { ItemComponent } from './Item';
 
 interface Item {
 	title: string
@@ -31,14 +33,27 @@ const items: Item[] = [
 ]
 
 export const PipeComponent = () => {
+	const [text, setText] = useState('default')
+	const [{ handlerId }, drop] = useDrop({
+		accept: ItemTypes.LibraryItem.toString(),
+		collect(monitor) {
+			return {
+				handlerId: monitor.getHandlerId(),
+			}
+		},
+		drop: (test: any) => {
+			setText(test.title)
+		}
+	})
+
 	return (
 		<div className={styles.pipe_wrap}>
 			<div className={styles.pipe__line} />
 
 			<SectionComponent externalClass={styles.pipe__section}>
-				<div className={styles.pipe}>
+				<div className={styles.pipe} ref={drop} data-handler-id={handlerId}>
 
-					data set
+					data set, { text }
 
 				</div>
 			</SectionComponent>

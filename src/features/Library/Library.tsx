@@ -1,10 +1,9 @@
 import React from 'react';
-import { useDrag } from 'react-dnd'
 
 import styles from './Library.module.scss'
 
 import { SectionComponent } from '../../components/Section';
-import { BoxComponent } from './Box';
+import { ItemComponent } from './Item';
 
 interface Item {
   title: string
@@ -37,7 +36,7 @@ export const LibraryComponent = () => {
         <div className={styles.library}>
 
           { items.map(({ title, description }, i) =>
-            <BoxComponent title={title} description={description} key={i} />
+            <ItemComponent title={title} description={description} key={i} />
           )}
 
         </div>

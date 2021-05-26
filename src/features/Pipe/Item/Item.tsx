@@ -1,13 +1,13 @@
 import React from 'react';
 
-import styles from './Box.module.scss'
+import styles from './Item.module.scss'
 
-export interface BoxProps {
+export interface ItemProps {
 	title: string
 	description: string
 }
 
-export const BoxComponent: React.FC<BoxProps> = ({ title, description }) => {
+export const ItemComponent: React.FC<ItemProps> = ({ title, description }) => {
 	return (
 		<div className={styles.box}>
 			<div className={styles.box_inner}>

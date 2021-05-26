@@ -4,6 +4,7 @@ import { useDrag } from 'react-dnd'
 import './App.scss';
 
 import { LibraryComponent } from './features/Library';
+import { PipeComponent } from './features/Pipe';
 
 function App() {
   const [{ opacity }, dragRef] = useDrag(
@@ -21,6 +22,7 @@ function App() {
       {/*<div ref={dragRef} style={{ opacity }}>*/}
       {/*</div>*/}
       <LibraryComponent />
+      <PipeComponent />
     </div>
   )
 }

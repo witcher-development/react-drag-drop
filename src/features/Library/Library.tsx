@@ -35,9 +35,9 @@ export const LibraryComponent = () => {
     <div className={styles.library_wrap}>
       <SectionComponent>
         <div className={styles.library}>
-          
-          { items.map(({ title, description }) =>
-            <BoxComponent title={title} description={description} />
+
+          { items.map(({ title, description }, i) =>
+            <BoxComponent title={title} description={description} key={i} />
           )}
 
         </div>

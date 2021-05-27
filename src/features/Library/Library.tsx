@@ -1,42 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import styles from './Library.module.scss'
+
+import { DnD } from '../../services/DnD';
 
 import { SectionComponent } from '../../components/Section';
 import { ItemComponent } from './Item';
 
-interface Item {
-  title: string
-  description: string
-}
-
-const items: Item[] = [
-  {
-    title: 'Data set',
-    description: 'Testing data set to test things out'
-  },
-  {
-    title: 'Transformer',
-    description: 'Allows you to rename and delete columns'
-  },
-  {
-    title: 'Filter',
-    description: 'Allows you to filter rows by value'
-  },
-  {
-    title: 'Merger',
-    description: 'Allows you to merge columns'
-  }
-]
-
 export const LibraryComponent = () => {
+  const [items] = useState(DnD.libraryItems)
+
   return (
     <div className={styles.library_wrap}>
       <SectionComponent>
         <div className={styles.library}>
 
-          { items.map(({ title, description }, i) =>
-            <ItemComponent title={title} description={description} key={i} />
+          { items.map((item) =>
+            <ItemComponent { ...item } key={item.id} />
           )}
 
         </div>

@@ -3,9 +3,8 @@ import { useDrop } from 'react-dnd'
 
 import styles from './Pipe.module.scss'
 
-import { ItemTypes } from '../../constants';
-
 import { SectionComponent } from '../../components/Section';
+import { DataSetComponent } from './DataSet';
 import { ItemComponent } from './Item';
 
 interface Item {
@@ -13,65 +12,50 @@ interface Item {
 	description: string
 }
 
-const items: Item[] = [
-	{
-		title: 'Data set',
-		description: 'Testing data set to test things out'
-	},
-	{
-		title: 'Transformer',
-		description: 'Allows you to rename and delete columns'
-	},
-	{
-		title: 'Filter',
-		description: 'Allows you to filter rows by value'
-	},
-	{
-		title: 'Merger',
-		description: 'Allows you to merge columns'
-	}
-]
 
 export const PipeComponent = () => {
-	const [text, setText] = useState('default')
-	const [{ handlerId }, drop] = useDrop({
-		accept: ItemTypes.LibraryItem.toString(),
-		collect(monitor) {
-			return {
-				handlerId: monitor.getHandlerId(),
-			}
-		},
-		drop: (test: any) => {
-			setText(test.title)
-		}
-	})
+	// const [{ handlerId }, drop] = useDrop({
+	// 	accept: ItemTypes.LibraryItem.toString(),
+	// 	collect(monitor) {
+	// 		return {
+	// 			handlerId: monitor.getHandlerId(),
+	// 		}
+	// 	},
+	// 	drop: (test: any) => {
+	// 		setText(test.title)
+	// 	}
+	// })
 
 	return (
 		<div className={styles.pipe_wrap}>
 			<div className={styles.pipe__line} />
 
 			<SectionComponent externalClass={styles.pipe__section}>
-				<div className={styles.pipe} ref={drop} data-handler-id={handlerId}>
-
-					data set, { text }
-
-				</div>
+				<>
+					<span className={styles['pipe__section-name']}>Data set</span>
+					<DataSetComponent />
+				</>
 			</SectionComponent>
 
 			<SectionComponent externalClass={styles.pipe__section}>
-				<div className={styles.pipe}>
+				<>
+					<span className={styles['pipe__section-name']}>Pipe</span>
+					{/*<div className={styles.pipe} ref={drop} data-handler-id={handlerId}>*/}
 
-					pipe
+					{/*	{ text }*/}
 
-				</div>
+					{/*</div>*/}
+				</>
 			</SectionComponent>
 
 			<SectionComponent externalClass={styles.pipe__section}>
-				<div className={styles.pipe}>
+				<>
+					<span className={styles['pipe__section-name']}>Output</span>
+					<div className={styles.pipe}>
 
-					output
 
-				</div>
+					</div>
+				</>
 			</SectionComponent>
 		</div>
 	)

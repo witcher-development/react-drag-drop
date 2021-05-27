@@ -3,23 +3,23 @@ import { useDrag } from 'react-dnd'
 
 import styles from './Item.module.scss'
 
-import { ItemTypes } from '../../../constants';
+import { LibraryItem } from '../../../services/DnD';
 
-export interface ItemProps {
-	title: string
-	description: string
-}
-
-export const ItemComponent: React.FC<ItemProps> = ({ title, description }) => {
-	const [{ isDragging }, dragRef, preview] = useDrag(
+export const ItemComponent: React.FC<LibraryItem> =
+	({
+		id,
+		type,
+		title,
+		description
+	}) => {
+	const [{ isDragging }, dragRef] = useDrag(
 		() => ({
-			type: ItemTypes.LibraryItem.toString(),
-			item: { title, description },
+			type: type.toString(),
+			item: { id },
 			collect: (monitor) => ({
-				isDragging: monitor.isDragging()
-			})
+				isDragging: monitor.isDragging(),
+			}),
 		}),
-		[]
 	)
 	return (
 		<div className={styles.box_wrap}>
@@ -29,11 +29,6 @@ export const ItemComponent: React.FC<ItemProps> = ({ title, description }) => {
 				</div>
 			</div>
 			<div className={styles.box__tip}>{ description }</div>
-			{/*<div className={styles.box_dragged} ref={preview}>*/}
-			{/*	<div className={styles.box_inner}>*/}
-			{/*		{ title }*/}
-			{/*	</div>*/}
-			{/*</div>*/}
 		</div>
 	)
 }

@@ -1,0 +1,14 @@
+.pipe {
+	height: 100%;
+
+	display: flex;
+
+	padding: 10px 45px;
+
+	&__drop-target {
+		width: 130px;
+		height: 130px;
+
+		background-color: red;
+	}
+}

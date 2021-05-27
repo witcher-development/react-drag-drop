@@ -1,0 +1,61 @@
+@import '../../../../assets';
+
+.picker {
+	width: 100%;
+
+	display: flex;
+	justify-content: center;
+
+	margin-top: 15px;
+
+	position: relative;
+
+	&__button {
+		width: 70%;
+
+		padding: 5px 0;
+
+		border: none;
+		border-bottom: 2px solid $secondary;
+		background-color: rgba($primary, .8);
+
+		text-align: center;
+
+		cursor: pointer;
+
+		color: rgba($font-primary, .7);
+	}
+
+	&__list {
+		ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		position: absolute;
+		top: calc(100% + 15px);
+		left: 50%;
+		transform: translateX(-50%);
+
+		width: 180px;
+		height: auto;
+
+		padding: 10px 15px;
+
+		li {
+			@extend .picker__button;
+
+			width: 100%;
+
+			margin-bottom: 20px;
+			&:last-of-type {
+				margin-bottom: 0;
+			}
+		}
+	}
+}

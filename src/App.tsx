@@ -3,13 +3,13 @@ import React from 'react';
 import './App.scss';
 
 import { LibraryComponent } from './features/Library';
-import { PipeComponent } from './features/Pipe';
+import { WorkspaceComponent } from './features/Workspace';
 
 function App() {
   return (
     <div className="app">
       <LibraryComponent />
-      <PipeComponent />
+      <WorkspaceComponent />
     </div>
   )
 }

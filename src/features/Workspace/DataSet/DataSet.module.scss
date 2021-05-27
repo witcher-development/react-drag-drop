@@ -1,0 +1,52 @@
+@import '../../../assets';
+
+.dataset {
+
+	height: 100%;
+
+	&__current {
+		height: 100%;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&__choose {
+		height: 100%;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&__empty {
+		height: 100%;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		background-color: rgba($lighter, 0.5);
+
+		text-transform: uppercase;
+
+		border-radius: 6px;
+
+		&_over {
+			@extend .dataset__empty;
+
+			animation: blinking-background .7s infinite alternate;
+		}
+	}
+}
+
+@keyframes blinking-background {
+	from {
+		background-color: rgba($accent, .2);
+	}
+	to {
+		background-color: rgba($accent, .5);
+	}
+}

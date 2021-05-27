@@ -5,7 +5,7 @@ class DnDService {
 		{
 			id: 1,
 			type: LibraryItemTypes.DataSet,
-			title: 'Data set',
+			title: 'Sample data set',
 			description: 'Testing data set to test things out'
 		},
 		{
@@ -28,7 +28,9 @@ class DnDService {
 		}
 	]
 
-
+	public getLibraryItemById (id: number) {
+		return this.libraryItems.find((item) => item.id === id)
+	}
 
 }
 

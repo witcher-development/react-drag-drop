@@ -21,6 +21,7 @@ export const ItemComponent: React.FC<LibraryItem> =
 			}),
 		}),
 	)
+
 	return (
 		<div className={styles.box_wrap}>
 			<div className={isDragging ? styles.box_dragged : styles.box} ref={dragRef}>

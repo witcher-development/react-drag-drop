@@ -33,11 +33,23 @@ export const PipeComponent: React.FC<PipeProps> = ({ dataSet }) => {
 
 	const [items, setItems] = useState<PipeItem[]>([])
 
-	const moveItems = (draggedIndex: number, hoveredIndex: number) => {
+	const moveItems = (draggedId: number, hoveredId: number, side: 'left' | 'right') => {
+		// debugger
+		const hoveredItem = items.find(({ id }) => id === hoveredId)
+		if (!hoveredItem) return
+		const hoveredIndex = items.indexOf(hoveredItem)
+		if (side === 'left' && hoveredIndex > 0 && items[hoveredIndex - 1].id === draggedId) return;
+		if (side === 'right' && hoveredIndex < items.length - 1 && items[hoveredIndex + 1].id === draggedId) return;
+
+		const draggedItem = items.find(({ id }) => id === draggedId)
+		if (!draggedItem) return
+
+		// console.log('here', side)
+
 		setItems([
-			...items.filter((_, i) => i < hoveredIndex && i !== draggedIndex),
-			items[draggedIndex],
-			...items.filter((_, i) => i >= hoveredIndex && i !== draggedIndex)
+			...items.filter(({ id }, i) => i < hoveredIndex && id !== draggedItem.id),
+			draggedItem,
+			...items.filter(({ id }, i) => i >= hoveredIndex && id !== draggedItem.id)
 		])
 	}
 
@@ -47,7 +59,7 @@ export const PipeComponent: React.FC<PipeProps> = ({ dataSet }) => {
 				<ItemComponent
 					dataSet={dataSet}
 					item={item}
-					key={i}
+					key={item.id}
 					index={i}
 					moveItems={moveItems}
 				/>

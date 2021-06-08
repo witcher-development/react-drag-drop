@@ -5,8 +5,7 @@ import styles from './Item.module.scss'
 
 import { LibraryItem } from '../../../services/DnD';
 
-export const ItemComponent: React.FC<LibraryItem> =
-	({
+export const ItemComponent: React.FC<LibraryItem> =	({
 		id,
 		type,
 		title,

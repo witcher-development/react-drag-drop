@@ -3,38 +3,58 @@ import React, { useRef, useEffect } from 'react';
 import styles from './Item.module.scss'
 
 import { DataSet, LibraryItemTypes, PipeItem } from '../../../../services/DnD';
-import { useDrag, useDrop } from 'react-dnd';
+import { useDrag, useDrop, XYCoord } from 'react-dnd';
 
 export interface ItemProps {
 	dataSet: DataSet
 	item: PipeItem
 	index: number
-	moveItems: (draggedIndex: number, hoveredIndex: number) => void
+	moveItems: (draggedId: number, hoveredId: number, side: 'left' | 'right') => void
 }
 
 export const ItemComponent: React.FC<ItemProps> =	(
 	{ dataSet, item, index, moveItems }
 ) => {
 	const ref = useRef<HTMLDivElement>(null)
-	const [{ isOver, draggedItem }, dropRef] = useDrop<
-		{ draggedIndex: number, id: number },
-		null,
-		{
-			isOver: boolean,
-			draggedItem: { draggedIndex: number, id: number },
-		}>({
+
+	/**
+	 * Drop
+	 */
+	const [, dropRef] = useDrop<PipeItem, null,	null>({
 		canDrop: () => false,
 		accept: [
 			LibraryItemTypes.Transformer.toString(),
 			LibraryItemTypes.Filter.toString(),
 			LibraryItemTypes.Merger.toString(),
 		],
-		collect: (monitor) => ({
-			isOver: monitor.isOver(),
-			draggedItem: monitor.getItem(),
-		})
+		// collect: (monitor) => ({
+		// 	isOver: monitor.isOver(),
+		// 	draggedItem: monitor.getItem(),
+		// 	draggedLocation: monitor.getClientOffset() as XYCoord
+		// }),
+		hover: (draggedItem, monitor) => {
+			// if (draggedItem?.draggedIndex === index) return
+			if (draggedItem?.id === item.id) return
+			if (!ref || !ref.current) return
+
+			const draggedLocation = monitor.getClientOffset() as XYCoord
+			const currentLocation = ref.current.getBoundingClientRect()
+
+			let side: 'left' | 'right' = 'left'
+			if (currentLocation.x + (currentLocation.width / 2) > draggedLocation.x) {
+				side = 'left'
+			}
+			if (currentLocation.x + (currentLocation.width / 2) < draggedLocation.x) {
+				side = 'right'
+			}
+
+			moveItems(draggedItem.id, item.id, side)
+		}
 	})
 
+	/**
+	 * Drag
+	 */
 	const [{ isDragging }, dragRef] = useDrag(
 		() => ({
 			type: item.type.toString(),
@@ -45,10 +65,10 @@ export const ItemComponent: React.FC<ItemProps> =	(
 		}),
 	)
 
-	useEffect(() => {
-		if (!isOver || !draggedItem || draggedItem.draggedIndex === undefined || index === draggedItem.draggedIndex) return
-		moveItems(draggedItem.draggedIndex, index)
-	}, [isOver])
+	// useEffect(() => {
+	// 	if (!isOver || !draggedItem || draggedItem.draggedIndex === undefined || index === draggedItem.draggedIndex) return
+	// 	moveItems(draggedItem.draggedIndex, index)
+	// }, [isOver])
 
 	const itemTypeClass = (item: PipeItem) => {
 		switch (item.type) {
